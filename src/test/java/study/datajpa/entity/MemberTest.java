@@ -1,8 +1,7 @@
-package stury.datajpa.entity;
+package study.datajpa.entity;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -14,10 +13,9 @@ class MemberTest {
 
     @PersistenceContext
     EntityManager em;
-
+    
     @Test
     @Transactional
-    @Rollback(value = false)
     void testEntity() {
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");

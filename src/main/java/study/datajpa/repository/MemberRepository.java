@@ -1,7 +1,7 @@
-package stury.datajpa.repository;
+package study.datajpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import stury.datajpa.entity.Member;
+import study.datajpa.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 

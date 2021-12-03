@@ -1,4 +1,4 @@
-package stury.datajpa.entity;
+package study.datajpa.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package stury.datajpa.controller;
+package study.datajpa.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

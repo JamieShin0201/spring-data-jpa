@@ -1,8 +1,8 @@
-package stury.datajpa.repository;
+package study.datajpa.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import stury.datajpa.entity.Member;
+import study.datajpa.entity.Member;
 
 import javax.persistence.EntityManager;
 import java.util.List;
