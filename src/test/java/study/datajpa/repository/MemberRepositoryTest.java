@@ -127,4 +127,26 @@ public class MemberRepositoryTest {
             System.out.println(memberDto);
         }
     }
+
+    @Test
+    public void findMembers() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("BBB", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        Member foundMember = memberRepository.findMembers("AAA");
+        assertThat(foundMember).isEqualTo(m1);
+    }
+
+    @Test
+    public void findByNames() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("BBB", 20);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+
+        List<Member> foundMembers = memberRepository.findByNames(List.of("AAA", "BBB"));
+        assertThat(foundMembers.size()).isEqualTo(2);
+    }
 }
