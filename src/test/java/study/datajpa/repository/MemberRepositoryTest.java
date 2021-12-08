@@ -11,6 +11,9 @@ import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 import study.datajpa.entity.Team;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnitUtil;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,6 +27,9 @@ public class MemberRepositoryTest {
 
     @Autowired
     TeamRepository teamRepository;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     public void testMember() {
@@ -187,5 +193,44 @@ public class MemberRepositoryTest {
         int resultCount = memberRepository.bulkAgePlus(20);
 
         assertThat(resultCount).isEqualTo(3);
+    }
+
+    @Test
+    public void findMemberLazy() {
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+        memberRepository.save(new Member("member1", 10, teamA));
+        memberRepository.save(new Member("member2", 20, teamB));
+
+        em.flush();
+        em.clear();
+
+//        List<Member> members = memberRepository.findAll();
+        List<Member> members = memberRepository.findMemberFetchJoin();
+        for (Member member : members) {
+            PersistenceUnitUtil util = em.getEntityManagerFactory().getPersistenceUnitUtil();
+            System.out.println("before util.isLoaded(member.getTeam()) = " + util.isLoaded(member.getTeam()));
+            member.getTeam().getName();
+            System.out.println("after util.isLoaded(member.getTeam()) = " + util.isLoaded(member.getTeam()));
+        }
+    }
+
+    @Test
+    public void findMemberFetchJoinOrEntityGraph() {
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+        memberRepository.save(new Member("member1", 10, teamA));
+        memberRepository.save(new Member("member2", 20, teamB));
+
+        em.flush();
+        em.clear();
+
+        memberRepository.findAll();
+        memberRepository.findMemberEntityGraph();
+        memberRepository.findByAge(20);
     }
 }
