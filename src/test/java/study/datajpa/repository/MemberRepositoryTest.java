@@ -233,4 +233,16 @@ public class MemberRepositoryTest {
         memberRepository.findMemberEntityGraph();
         memberRepository.findByAge(20);
     }
+
+    @Test
+    public void queryHint() {
+        memberRepository.save(new Member("member1", 10));
+        em.flush();
+        em.clear();
+
+        Member member = memberRepository.findReadOnlyByUsername("member1");
+        member.setUsername("member2");
+
+        em.flush(); // update query 가 실행되지 않음
+    }
 }
