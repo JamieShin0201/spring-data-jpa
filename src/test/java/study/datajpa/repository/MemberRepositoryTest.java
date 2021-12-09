@@ -245,4 +245,14 @@ public class MemberRepositoryTest {
 
         em.flush(); // update query 가 실행되지 않음
     }
+
+    @Test
+    public void findMemberCustom() {
+        memberRepository.save(new Member("member1", 10));
+        memberRepository.save(new Member("member2", 20));
+
+        List<Member> members = memberRepository.findMemberCustom();
+
+        assertThat(members.size()).isEqualTo(2);
+    }
 }
