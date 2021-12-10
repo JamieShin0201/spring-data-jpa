@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,6 +18,9 @@ class MemberJpaRepositoryTest {
 
     @Autowired
     MemberJpaRepository memberJpaRepository;
+
+    @PersistenceContext
+    EntityManager em;
 
     @Test
     public void testMember() {
@@ -96,5 +101,21 @@ class MemberJpaRepositoryTest {
         int resultCount = memberJpaRepository.bulkAgePlus(20);
 
         assertThat(resultCount).isEqualTo(3);
+    }
+
+    @Test
+    public void JpaEventBaseEntity() throws InterruptedException {
+        Member member = new Member("member1", 10);
+        memberJpaRepository.save(member);
+
+        Thread.sleep(100);
+        member.setUsername("member2");
+
+        em.flush();
+        em.clear();
+
+        Member foundMember = memberJpaRepository.findById(member.getId()).get();
+        System.out.println("foundMember.getCreatedDateTime() = " + foundMember.getCreatedDateTime());
+        System.out.println("foundMember.getUpdatedDataTime() = " + foundMember.getUpdatedDataTime());
     }
 }
