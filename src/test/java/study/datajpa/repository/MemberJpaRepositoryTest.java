@@ -116,6 +116,8 @@ class MemberJpaRepositoryTest {
 
         Member foundMember = memberJpaRepository.findById(member.getId()).get();
         System.out.println("foundMember.getCreatedDateTime() = " + foundMember.getCreatedDateTime());
-        System.out.println("foundMember.getUpdatedDataTime() = " + foundMember.getUpdatedDataTime());
+        System.out.println("foundMember.getLastModifiedDateTime() = " + foundMember.getLastModifiedDateTime());
+        System.out.println("foundMember.getCreatedBy() = " + foundMember.getCreatedBy());
+        System.out.println("foundMember.getLastModifiedBy() = " + foundMember.getLastModifiedBy());
     }
 }

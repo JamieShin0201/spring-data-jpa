@@ -4,9 +4,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @NamedQuery(
         name = "Member.findByUsername",
@@ -15,7 +17,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "username", "age"})
-public class Member extends JpaBaseEntity {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue
