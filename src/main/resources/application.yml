@@ -18,6 +18,12 @@ spring:
         default-page-size: 20 # 기본 페이지 사이즈
         max-page-size: 2000 # 최대 페이지 사이즈
 
+        # Page 를 1부터 시작하려면
+        # 1. Pageable, Page를 파라미터와 응답 값으로 사용하지 않고 직접 클래스를 만들어서 처리
+        # 2. spring.data.web.pageable.one-indexed-parameters 를 true 로 설정한다
+        # 단지, page 파라미터에 -1 처리 (만약 페이지 파라미터로 3을 넘긴다면 응답값 페이지는 2로 나옴)
+        one-indexed-parameters: true
+
 logging.level:
   org.hibernate.SQL: debug
 # org.hibernate.type: trace
