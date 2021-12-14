@@ -13,8 +13,6 @@ import study.datajpa.dto.MemberDto;
 import study.datajpa.entity.Member;
 import study.datajpa.repository.MemberRepository;
 
-import javax.annotation.PostConstruct;
-
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
@@ -64,8 +62,8 @@ public class MemberController {
         return pageDto;
     }
 
-    @PostConstruct
-    public void init() {
-        memberRepository.save(new Member("member1"));
-    }
+//    @PostConstruct
+//    public void init() {
+//        memberRepository.save(new Member("member1"));
+//    }
 }
