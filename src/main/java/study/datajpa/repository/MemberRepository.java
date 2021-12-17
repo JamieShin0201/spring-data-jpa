@@ -59,4 +59,6 @@ public interface MemberRepository extends
 
     @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
     Member findReadOnlyByUsername(String username);
+
+    List<UsernameOnly> findProjectionsByUsername(String username);
 }
