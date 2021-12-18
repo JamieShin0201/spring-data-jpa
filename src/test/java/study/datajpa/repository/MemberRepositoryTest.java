@@ -289,5 +289,6 @@ public class MemberRepositoryTest {
         List<UsernameOnly> result = memberRepository.findProjectionsByUsername("m1");
 
         assertThat(result.size()).isEqualTo(1);
+        assertThat(result.get(0).getUsername()).isEqualTo("m1 0 teamA");
     }
 }
