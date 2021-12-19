@@ -274,6 +274,24 @@ public class MemberRepositoryTest {
         List<Member> result = memberRepository.findAll(spec);
     }
 
+//    @Test
+//    public void projections() {
+//        Team teamA = new Team("teamA");
+//        em.persist(teamA);
+//
+//        Member m1 = new Member("m1", 0, teamA);
+//        Member m2 = new Member("m2", 0, teamA);
+//        em.persist(m1);
+//        em.persist(m2);
+//        em.flush();
+//        em.clear();
+//
+//        List<UsernameOnly> result = memberRepository.findProjectionsByUsername("m1");
+//
+//        assertThat(result.size()).isEqualTo(1);
+//        assertThat(result.get(0).getUsername()).isEqualTo("m1 0 teamA");
+//    }
+
     @Test
     public void projections() {
         Team teamA = new Team("teamA");
@@ -286,9 +304,12 @@ public class MemberRepositoryTest {
         em.flush();
         em.clear();
 
-        List<UsernameOnly> result = memberRepository.findProjectionsByUsername("m1");
+        List<UsernameOnlyDto> result = memberRepository.findProjectionsByUsername("m1");
+        for (UsernameOnlyDto usernameOnlyDto : result) {
+            System.out.println("usernameOnlyDto = " + usernameOnlyDto);
+            System.out.println("usernameOnlyDto.getUsername() = " + usernameOnlyDto.getUsername());
+        }
 
         assertThat(result.size()).isEqualTo(1);
-        assertThat(result.get(0).getUsername()).isEqualTo("m1 0 teamA");
     }
 }
