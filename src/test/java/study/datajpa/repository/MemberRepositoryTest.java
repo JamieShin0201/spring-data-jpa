@@ -292,6 +292,27 @@ public class MemberRepositoryTest {
 //        assertThat(result.get(0).getUsername()).isEqualTo("m1 0 teamA");
 //    }
 
+//    @Test
+//    public void projections() {
+//        Team teamA = new Team("teamA");
+//        em.persist(teamA);
+//
+//        Member m1 = new Member("m1", 0, teamA);
+//        Member m2 = new Member("m2", 0, teamA);
+//        em.persist(m1);
+//        em.persist(m2);
+//        em.flush();
+//        em.clear();
+//
+//        List<UsernameOnlyDto> result = memberRepository.findProjectionsByUsername("m1");
+//        for (UsernameOnlyDto usernameOnlyDto : result) {
+//            System.out.println("usernameOnlyDto = " + usernameOnlyDto);
+//            System.out.println("usernameOnlyDto.getUsername() = " + usernameOnlyDto.getUsername());
+//        }
+//
+//        assertThat(result.size()).isEqualTo(1);
+//    }
+
     @Test
     public void projections() {
         Team teamA = new Team("teamA");
@@ -304,12 +325,10 @@ public class MemberRepositoryTest {
         em.flush();
         em.clear();
 
-        List<UsernameOnlyDto> result = memberRepository.findProjectionsByUsername("m1");
-        for (UsernameOnlyDto usernameOnlyDto : result) {
-            System.out.println("usernameOnlyDto = " + usernameOnlyDto);
-            System.out.println("usernameOnlyDto.getUsername() = " + usernameOnlyDto.getUsername());
-        }
+        List<UsernameOnly> result1 = memberRepository.findProjectionsByUsername("m1", UsernameOnly.class);
+        assertThat(result1.size()).isEqualTo(1);
 
-        assertThat(result.size()).isEqualTo(1);
+        List<UsernameOnlyDto> result2 = memberRepository.findProjectionsByUsername("m1", UsernameOnlyDto.class);
+        assertThat(result2.size()).isEqualTo(1);
     }
 }

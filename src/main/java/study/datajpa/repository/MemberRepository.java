@@ -62,5 +62,7 @@ public interface MemberRepository extends
 
 //    List<UsernameOnly> findProjectionsByUsername(String username);
 
-    List<UsernameOnlyDto> findProjectionsByUsername(String username);
+//    List<UsernameOnlyDto> findProjectionsByUsername(String username);
+
+    <T> List<T> findProjectionsByUsername(String username, Class<T> type);
 }
